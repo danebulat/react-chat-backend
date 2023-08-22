@@ -24,8 +24,24 @@ async function getUserCount() {
   return Number(result[0].total);
 }
 
+/* messenger api */
+async function getConversation(id) {
+  const sql = `SELECT * FROM conversations WHERE id = ${id}`;
+  const rows = await query(sql);
+  return rows[0];
+}
+
+async function getMessage(id) {
+  const sql = `SELECT * FROM messages WHERE id = ${id}`;
+  const rows = await query(sql);
+  return rows[0];
+}
+
+/* exports */
 export {
   query,
   isDuplicateUsername,
   getUserCount,
+  getConversation,
+  getMessage,
 };
