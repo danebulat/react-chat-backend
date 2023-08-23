@@ -31,10 +31,10 @@ router.use(express.static(
 /* Pass router to subdir                    */
 /* ---------------------------------------- */
 
-app.use('/api', authRouter);
-app.use('/api/users', userRouter);
-app.use('/api/conversations', conversationRouter);
-app.use('/api/messages', messageRouter);
+app.use(`${config.subdir}/api`, authRouter);
+app.use(`${config.subdir}/api/users`, userRouter);
+app.use(`${config.subdir}/api/conversations`, conversationRouter);
+app.use(`${config.subdir}/api/messages`, messageRouter);
 
 //TODO: check router is not serving static files
 app.use(config.subdir, router);

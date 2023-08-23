@@ -55,10 +55,6 @@ CREATE TABLE IF NOT EXISTS `users_conversations` (
 
 
 -- create messages table
-
--- NOTE: in private conversation between 2 users,
--- add sender_id and receiver_id columns
-
 CREATE TABLE IF NOT EXISTS `messages` (
   `id`               INT AUTO_INCREMENT PRIMARY KEY,
   `user_id`          INT UNSIGNED NOT NULL,

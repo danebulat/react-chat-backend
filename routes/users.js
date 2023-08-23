@@ -32,12 +32,13 @@ router.delete('/:userId', verify, async (req, res, next) => {
 
 router.get('/', async (_req, res, next) => {
   try {
-    const sql = 'SELECT username, created_at FROM users';
+    const sql = 'SELECT id, username, created_at FROM users';
     const rows = await db.query(sql);
     const data = rows === [] ? [] : rows;
 
     const users = data.map(user => {
       return {
+        userId: user.id,
         username: user.username,
         createdAt: user.created_at,
       }
