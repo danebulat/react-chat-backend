@@ -1,6 +1,7 @@
-import express from 'express';
+import express    from 'express';
 import { verify } from './auth.js';
-import * as db from '../services/db.js';
+import * as db    from '../services/db.js';
+import { escape } from 'mysql2';
 
 const router = express.Router();
 
@@ -32,7 +33,7 @@ router.post('/', verify, async (req, res) => {
 
   try {
     const title = req.body.title;
-    const sql = `INSERT INTO conversations (title) VALUES ('${title}')`;
+    const sql = `INSERT INTO conversations (title) VALUES (${escape(title)})`;
     const result = await db.query(sql);
     const conversation = await db.getConversation(result.insertId);
     res.status(200).json(conversation);
@@ -47,7 +48,6 @@ router.post('/', verify, async (req, res) => {
 /* GET /:userId   get a user's conversations          */
 /* -------------------------------------------------- */
 
-//TODO: verify user is logged in
 router.get('/:userId', verify, async (req, res) => {
   console.log('/api/conversations/:userId');
   try {

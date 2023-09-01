@@ -1,6 +1,7 @@
-import express from 'express';
-import * as db from '../services/db.js';
+import express    from 'express';
+import * as db    from '../services/db.js';
 import { verify } from './auth.js';
+import { escape } from 'mysql2';
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ router.post('/', verify, async (req, res) => {
     const sql = `INSERT INTO messages (user_id, conversation_id, text)
       VALUES (${req.body.userId}, 
               ${req.body.conversationId}, 
-             "${req.body.text}")`;
+              ${escape(req.body.text)})`;
 
     const result = await db.query(sql);
     const message = await db.getMessage(result.insertId);
